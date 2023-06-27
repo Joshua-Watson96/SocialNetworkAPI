@@ -1,3 +1,4 @@
+// require mongoose and moment
 const { model, Schema, Types } = require('mongoose');
 const moment = require('moment');
 
@@ -75,3 +76,4 @@ const Thoughts = model('Thoughts', ThoughtsSchema);
 
 // export module
 module.exports = Thoughts;
+
