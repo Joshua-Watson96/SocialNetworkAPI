@@ -1,6 +1,6 @@
 const { connect, connection } = require('mongoose');
 
-connect(process.env.MONGO_DB)
+connect('mongodb://localhost:27017/socialDb')
 
-module.exports = connection;
+module.exports = mongoose.connection;
 
