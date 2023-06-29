@@ -20,19 +20,36 @@ const thoughtsController = {
     // Get All Thoughts
     getAllThoughts(req, res) {
     Thoughts.find({})
-    .populate({path: 'reactions', select:'-__V'})
-    .select('-__V')
+    .populate({path: 'reactions', select:'-__v'})
+    .select('-__v')
     .then(dbThoughtsData => res.json(dbThoughtsData))
     .catch(err => {
         console.log(err);
         res.status(500).json(err)
     });
 },
+
+getThoughtById({params}, res) {
+    Thoughts.findOne({_id: params.id })
+    .populate({path: 'reactions', select: '-__v'})
+    .select('-__v')
+    .then(dbThoughtsData => {
+        if(!dbThoughtsData){
+            res.status(404).json({message: 'Nothing found with this ID'});
+            return;
+        }
+        res.json(dbThoughtsData)
+    })
+    .catch(err => {
+        res.sendStatus(400);
+    });
+
+},
   // Update Thought
  updateThought({params, body}, res) {
     Thoughts.findOneAndUpdate({_id: params.id}, body, {new: true, runValidators: true})
-    .populate({path: 'reactions', select: '-__V'})
-    .select('-__V')
+    .populate({path: 'reactions', select: '-__v'})
+    .select('-__v')
     .then(dbThoughtsData => {
         if(!dbThoughtsData) {
             res.status(404),json({message: 'No thoughts found with this ID'});
@@ -59,8 +76,8 @@ const thoughtsController = {
 // Add a Reaction
  addReaction({params, body}, res) {
    Thoughts.findOneAndUpdate({_id: params.thoughtId}, {$push: {reactions: body}}, {new: true, runValidators: true})
-    .populate({path: 'reactions', select:'-__V'})
-    .select('-__V')
+    .populate({path: 'reactions', select:'-__v'})
+    .select('-__v')
     .then(dbThoughtsData => {
         if(!dbThoughtsData) {
             res.status(404).json({message: 'Nothing found with this ID.'});
