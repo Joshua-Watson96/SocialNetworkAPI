@@ -12,7 +12,7 @@ app.use(express.static('public'));
 app.use(require('./routes'));
 
 // Connect to mongoose
-mongoose.connect('mongodb://localhost/socialDb', {
+mongoose.connect('mongodb://localhost:27017/socialDb', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

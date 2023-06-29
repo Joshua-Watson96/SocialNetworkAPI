@@ -1,6 +1,6 @@
-const { connect, connection } = require('mongoose');
+// const mongoose = require('mongoose');
 
-connect('mongodb://localhost:27017/socialDb')
+// mongoose.connect('mongodb://localhost:27017/socialDb')
 
-module.exports = mongoose.connection;
+// module.exports = mongoose.connection;
 
