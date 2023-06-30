@@ -26,10 +26,10 @@ This is a snippet of the MongoDB
 - [Got to Questions](#questions)
 
 ## Installation
-when in the command line, run npm install.<br> 
-then run mongod (assuming you have MongoDB installed on your computer) to start the server <br>
-then run node server.js to start the server. <br>
-then in insomnia, do the required Get/Post/Put/Delete routes.
+When in the command line, run npm install.<br> 
+Then run mongod (assuming you have MongoDB installed on your computer) to start the server <br>
+Then run node server.js to start the server. <br>
+Then in insomnia, do the required Get/Post/Put/Delete routes.
     
 ## Usage
 The usage for this program is  for the backend of an Social Network API. It is used to: <br>
