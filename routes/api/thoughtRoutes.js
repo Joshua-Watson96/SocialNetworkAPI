@@ -19,7 +19,7 @@ router.route('/').get(getAllThoughts);
 router.route('/:id').get(getThoughtById).put(updateThought).delete(deleteThoughts);
 
 // Route for create thoughts
-// End-point /api/thoughts/:userId
+// End-point /api/thoughts/userId
 router.route('/:userId').post(createThought);
 
 // routes for add reaction

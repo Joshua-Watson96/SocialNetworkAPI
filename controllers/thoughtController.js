@@ -5,7 +5,7 @@ const thoughtsController = {
     createThought({params, body}, res){
         Thoughts.create(body)
         .then(({_id}) => {
-            return Users.findOneAndUpdate({ _id: params.userId}, {$push: {thoughts: _id}}, {new: true});
+            return User.findOneAndUpdate({ _id: params.userId}, {$push: {thoughts: _id}}, {new: true});
         })
         .then(dbThoughtsData => {
             if(!dbThoughtsData) {
@@ -74,19 +74,37 @@ getThoughtById({params}, res) {
 },
 
 // Add a Reaction
- addReaction({params, body}, res) {
-   Thoughts.findOneAndUpdate({_id: params.thoughtId}, {$push: {reactions: body}}, {new: true, runValidators: true})
-    .populate({path: 'reactions', select:'-__v'})
-    .select('-__v')
-    .then(dbThoughtsData => {
-        if(!dbThoughtsData) {
-            res.status(404).json({message: 'Nothing found with this ID.'});
-            return;
+// add a reaction to a thought
+addReaction(req, res) {
+    Thoughts.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
+      { runValidators: true, new: true }
+    )
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          return res.status(404).json({ message: 'No thought with this id!' });
         }
-        res.json(dbThoughtsData);
-    })
-    .catch(err => res.status(400).json(err))
-},
+        res.json(dbThoughtData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+//  addReaction({params, body}, res) {
+//    Thoughts.findOneAndUpdate({_id: params.thoughtId}, {$push: {reactions: body}}, {new: true, runValidators: true})
+//     .populate({path: 'reactions', select:'-__v'})
+//     .select('-__v')
+//     .then(dbThoughtsData => {
+//         if(!dbThoughtsData) {
+//             res.status(404).json({message: 'Nothing found with this ID.'});
+//             return;
+//         }
+//         res.json(dbThoughtsData);
+//     })
+//     .catch(err => res.status(400).json(err))
+// },
 
 // Delete a Reaction
  deleteReaction({params}, res) {
