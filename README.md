@@ -23,7 +23,7 @@ This is a snippet of the MongoDB
 - [Go to Contributing](#contributing) 
 - [Go to Tests](#tests)
 - [Go to License](#license)
-- [Got to Questions](#questions)
+- [Go to Questions](#questions)
 
 ## Installation
 When in the command line, run npm install.<br> 
